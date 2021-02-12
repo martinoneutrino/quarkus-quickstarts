@@ -6,6 +6,8 @@ import javax.enterprise.context.ApplicationScoped;
 public class GreetingService {
 
     public String greeting(String name) {
+        GreetingTest test = new GreetingTest();
+        test.setName(name);
         return "hello " + name;
     }
 

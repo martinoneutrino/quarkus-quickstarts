@@ -17,6 +17,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.parameters>true</maven.compiler.parameters>
+        <io.ebean.version>12.6.2</io.ebean.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +47,24 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+        <groupId>io.ebean</groupId>
+        <artifactId>ebean</artifactId>
+        <version>${io.ebean.version}</version>
+        </dependency>
+        <dependency>
+        <groupId>io.ebean</groupId>
+        <artifactId>ebean-querybean</artifactId>
+        <version>${io.ebean.version}</version>
+        </dependency>
+        <!-- Query bean generation for Java -->
+        <dependency>
+        <groupId>io.ebean</groupId>
+        <artifactId>querybean-generator</artifactId>
+        <version>${io.ebean.version}</version>
+        <scope>provided</scope>
+        </dependency>        
     </dependencies>
 
     <build>
@@ -75,6 +94,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.repaint.maven</groupId>
+                <artifactId>tiles-maven-plugin</artifactId>
+                <version>2.18</version>
+                <extensions>true</extensions>
+                <configuration>
+                <tiles>
+        <!--            <tile>org.avaje.tile:java-compile:1.1</tile>-->
+                    <tile>io.ebean.tile:enhancement:${io.ebean.version}</tile>
+                </tiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>
