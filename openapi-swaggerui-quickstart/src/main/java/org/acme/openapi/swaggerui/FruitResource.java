@@ -4,6 +4,10 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.openapi.quarkus.apis_guru_openapi_yaml.api.ApisApi;
+
+import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -19,8 +23,17 @@ public class FruitResource {
         fruits.add(new Fruit("Pineapple", "Tropical fruit"));
     }
 
+    @Inject
+    @RestClient
+    ApisApi guruApi;
+
     @GET
     public Set<Fruit> list() {
+        try {
+            System.out.println("External REST API result length: " + guruApi.getProviders().toString().length());
+        } catch (Exception e) {
+            return Set.of();
+        }
         return fruits;
     }
 
